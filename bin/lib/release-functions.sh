@@ -19,6 +19,40 @@ function _release_abort() {
     exit 1
 }
 
+# Run the project's `preflight` script (tests/lint/build) with its output
+# captured: a one-line pass on success, the full output on failure. This
+# replaces the yarn/npm `prerelease` lifecycle hook, whose verbose output ran
+# in a separate process before ssh-release and so could not be quieted here.
+# Returns 0 when there is no preflight script or it passes; 1 when it fails.
+function run_preflight() {
+    local pm
+    pm=$(get_package_manager_for_project)
+
+    # Nothing to do when the project defines no preflight script.
+    if ! node -e "const s=(require('./package.json').scripts)||{}; process.exit(s.preflight?0:1)" 2>/dev/null; then
+        return 0
+    fi
+
+    printf "  Running pre-release checks..."
+
+    local output status
+    output=$("$pm" run preflight 2>&1)
+    status=$?
+
+    if [ "$status" -eq 0 ]; then
+        printf " ✅\n"
+
+        return 0
+    fi
+
+    printf " ❌\n\n"
+    echo "$output"
+    echo ""
+    echo "❌ Pre-release checks failed. Aborting release."
+
+    return 1
+}
+
 function ssh_create_release() {
     local version_bump="$1"
 
@@ -53,6 +87,15 @@ function ssh_create_release() {
         echo "   Update CHANGELOG.md before releasing."
 
         _release_abort
+    fi
+
+    # --- Pre-release checks ------------------------------------------------
+    # Run the project's preflight script (tests/lint/build) with output captured
+    # so a normal release stays quiet. Skipped on a dry run to keep it fast.
+    if [ "${DRY_RUN:-false}" = "true" ]; then
+        echo "    - Pre-release checks skipped (dry run)."
+    else
+        run_preflight || _release_abort
     fi
 
     # --- Keep the build tools current --------------------------------------
