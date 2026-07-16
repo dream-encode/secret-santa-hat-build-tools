@@ -20,8 +20,7 @@
     "CHANGELOG.md"
   ],
   "scripts": {
-    "postinstall": "node scripts/postinstall.js",
-    "release": "ssh-release"
+    "postinstall": "node scripts/postinstall.js"
   },
   "repository": {
     "type": "git",

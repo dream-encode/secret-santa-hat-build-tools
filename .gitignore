@@ -6,3 +6,4 @@ Thumbs.db
 .env.*
 bin/config/release.conf
 .wakatime-project
+.vscode
