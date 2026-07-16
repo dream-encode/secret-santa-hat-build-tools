@@ -10,11 +10,11 @@ without depending on a personal shell profile.
 Running `ssh-release` from a repo on the `development` (or `hotfix`) branch:
 
 1. Verifies the branch and that `CHANGELOG.md` has a
-   `## [NEXT_VERSION] - [UNRELEASED]` section at the top.
+   `## 0.1.1 - [UNRELEASED]` section at the top.
 2. Bumps the version (interactive menu, or `patch`/`minor`/`major`/`hotfix`):
    - `package.json`
    - `public/manifest.json` (if present)
-   - any file containing the `[NEXT_VERSION]` placeholder
+   - any file containing the `0.1.1` placeholder
 3. Commits the bump, then rewrites the changelog `NEXT_VERSION` header to the
    new version and date and commits that.
 4. Pushes, creates a `release/<version>` branch, and tags `v<version>`.
@@ -23,7 +23,7 @@ Running `ssh-release` from a repo on the `development` (or `hotfix`) branch:
 6. Merges the release branch into the default branch (`main`/`master`) and
    pushes it.
 7. Re-seeds a fresh `NEXT_VERSION` changelog section and resets
-   `public/sw.js` `APP_VERSION` back to `[NEXT_VERSION]`, then returns to the
+   `public/sw.js` `APP_VERSION` back to `0.1.1`, then returns to the
    working branch.
 
 JSON edits are done with `node` (always present in a Node project), so `jq` is
