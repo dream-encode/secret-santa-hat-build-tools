@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /*
- * Project setup for @dream-encode/secret-santa-hat-build-tools.
+ * Project setup for @secret-santa-hat/build-tools.
  *
  * Wires a "release": "ssh-release" script into the consuming project's
  * package.json. Any existing custom release script is backed up as
@@ -13,7 +13,7 @@ const fs       = require( 'fs' )
 const path     = require( 'path' )
 const readline = require( 'readline' )
 
-const PACKAGE_NAME  = '@dream-encode/secret-santa-hat-build-tools'
+const PACKAGE_NAME  = '@secret-santa-hat/build-tools'
 const RELEASE_VALUE = 'ssh-release'
 
 const VALID_RELEASE_SCRIPTS = [

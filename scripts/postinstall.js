@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /*
- * Postinstall for @dream-encode/secret-santa-hat-build-tools.
+ * Postinstall for @secret-santa-hat/build-tools.
  *
  * After the package is installed into a project, notify that a "release"
  * script can be wired in. It never edits package.json automatically here;
@@ -13,7 +13,7 @@ const fs   = require( 'fs' )
 const path = require( 'path' )
 const { analyzeCurrentSetup, findProjectRoot } = require( './setup-project' )
 
-const PACKAGE_NAME = '@dream-encode/secret-santa-hat-build-tools'
+const PACKAGE_NAME = '@secret-santa-hat/build-tools'
 
 const colors = {
 	green: '\x1b[32m',
