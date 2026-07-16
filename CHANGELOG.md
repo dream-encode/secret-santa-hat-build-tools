@@ -1,6 +1,6 @@
 # Changelog
 
-## [NEXT_VERSION] - [UNRELEASED]
+## [0.1.1] - 2026-07-16
 * TSK: Publish under the `@secret-santa-hat` npm organization as `@secret-santa-hat/build-tools`, moving it out of `@dream-encode`.
 
 ## [0.1.0] - 2026-07-16
