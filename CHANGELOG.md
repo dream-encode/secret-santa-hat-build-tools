@@ -1,6 +1,6 @@
 # Changelog
 
-## [NEXT_VERSION] - [UNRELEASED]
+## [0.1.2] - 2026-07-16
 * BUG: Release - Exclude `README.md` from the `[NEXT_VERSION]` placeholder replacement, so documentation that shows the literal `[NEXT_VERSION]` is no longer rewritten to the version number at release time.
 * TSK: Publish releases from CI via GitHub Actions with npm OIDC trusted publishing, so releases no longer need a local npm token. `npmcr` detects the `publish-npm.yml` workflow and skips the manual publish.
 
