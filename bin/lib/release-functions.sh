@@ -91,12 +91,10 @@ function ssh_create_release() {
 
     # --- Pre-release checks ------------------------------------------------
     # Run the project's preflight script (tests/lint/build) with output captured
-    # so a normal release stays quiet. Skipped on a dry run to keep it fast.
-    if [ "${DRY_RUN:-false}" = "true" ]; then
-        echo "    - Pre-release checks skipped (dry run)."
-    else
-        run_preflight || _release_abort
-    fi
+    # so the release stays quiet. Runs on a dry run too - a dry run should
+    # exercise the same checks a real release would; only the git operations are
+    # skipped.
+    run_preflight || _release_abort
 
     # --- Keep the build tools current --------------------------------------
     # Pull the latest @secret-santa-hat/build-tools before releasing; a real

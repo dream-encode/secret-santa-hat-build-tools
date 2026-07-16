@@ -1,5 +1,8 @@
 # Changelog
 
+## [NEXT_VERSION] - [UNRELEASED]
+* BUG: Run the `preflight` checks on `--dry-run` too. A dry run should exercise the same pre-release checks a real release does; only the git operations are skipped. 0.2.2 wrongly skipped preflight on a dry run.
+
 ## [0.2.2] - 2026-07-16
 * FEA: Run pre-release checks from `ssh-release`. When the project defines a `preflight` script, `ssh-release` runs it with output captured - one line on success, the full output only on failure - so a normal release stays quiet. Name it `preflight` rather than the yarn/npm `prerelease` hook, which runs verbosely in a separate process before `ssh-release` and cannot be quieted. Skipped on `--dry-run`.
 
