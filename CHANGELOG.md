@@ -1,6 +1,6 @@
 # Changelog
 
-## [NEXT_VERSION] - [UNRELEASED]
+## [0.2.3] - 2026-07-16
 * BUG: Run the `preflight` checks on `--dry-run` too. A dry run should exercise the same pre-release checks a real release does; only the git operations are skipped. 0.2.2 wrongly skipped preflight on a dry run.
 
 ## [0.2.2] - 2026-07-16
