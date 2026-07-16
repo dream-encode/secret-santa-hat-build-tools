@@ -43,13 +43,13 @@ function github_create_release() {
         local RELEASE_NOTES
         RELEASE_NOTES=$(extract_version_updates_from_changelog "$VERSION")
 
-        if ! gh release create "v$VERSION" -n "$RELEASE_NOTES" -t "v$VERSION"; then
+        if ! gh release create "v$VERSION" -n "$RELEASE_NOTES" -t "v$VERSION" >/dev/null; then
             echo "Error: failed to create GitHub release v$VERSION" >&2
 
             return 1
         fi
     else
-        if ! gh release create "v$VERSION" -t "v$VERSION" --generate-notes; then
+        if ! gh release create "v$VERSION" -t "v$VERSION" --generate-notes >/dev/null; then
             echo "Error: failed to create GitHub release v$VERSION" >&2
 
             return 1
@@ -89,7 +89,7 @@ function github_release_add_compare_link() {
 
     local updated_notes="${existing_notes}"$'\n\n'"${compare_line}"
 
-    if ! gh release edit "$current_tag" --notes "$updated_notes"; then
+    if ! gh release edit "$current_tag" --notes "$updated_notes" >/dev/null; then
         echo "Warning: failed to add compare link to release $current_tag" >&2
 
         return 1
