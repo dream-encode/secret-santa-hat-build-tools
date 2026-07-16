@@ -1,6 +1,6 @@
 # Changelog
 
-## [NEXT_VERSION] - [UNRELEASED]
+## [0.2.0] - 2026-07-16
 * FEA: Self-update the build tools at the start of a release - when a newer `@secret-santa-hat/build-tools` is published, `ssh-release` upgrades it, records a `TSK: Updated @secret-santa-hat/build-tools to vX` changelog entry, and commits and pushes it (so every release runs on the latest tooling). Also available standalone as `ssh-update`; opt out with `SSH_RELEASE_NO_SELF_UPDATE=1`.
 
 ## [0.1.2] - 2026-07-16
