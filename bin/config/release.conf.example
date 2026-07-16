@@ -1,0 +1,8 @@
+# secret-santa-hat-build-tools release configuration (optional).
+#
+# Copy this file to release.conf in the same directory to override defaults.
+# It is sourced by release.sh before the release runs.
+
+# Branch that releases are merged into. Auto-detected (main, then master) when
+# unset.
+# SSH_RELEASE_MAIN_BRANCH="main"

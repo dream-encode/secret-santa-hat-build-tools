@@ -1,0 +1,46 @@
+{
+  "name": "@dream-encode/secret-santa-hat-build-tools",
+  "version": "0.1.0",
+  "description": "Release build tools for Secret Santa Hat JavaScript repositories. Provides the `ssh-release` command, a JS-tailored port of the gcrq (git_create_release_quiet) release flow.",
+  "license": "MIT",
+  "author": "David Baumwald <david@dream-encode.com>",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "ssh-release": "bin/ssh-release.js",
+    "secret-santa-hat-build-tools": "bin/setup.js"
+  },
+  "files": [
+    "bin/",
+    "scripts/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "postinstall": "node scripts/postinstall.js",
+    "release": "ssh-release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dream-encode/secret-santa-hat-build-tools.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dream-encode/secret-santa-hat-build-tools/issues"
+  },
+  "homepage": "https://github.com/dream-encode/secret-santa-hat-build-tools#readme",
+  "keywords": [
+    "secret-santa-hat",
+    "release",
+    "build",
+    "changelog",
+    "versioning",
+    "git",
+    "github"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
