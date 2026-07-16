@@ -274,12 +274,3 @@ function replace_next_version_placeholders() {
         echo "    - Replaced [NEXT_VERSION] with $new_version in files."
     fi
 }
-
-# Reset the service worker APP_VERSION back to the [NEXT_VERSION] template.
-function update_service_worker_next_version_template() {
-    if [ -f "public/sw.js" ]; then
-        sed_inplace "s/const APP_VERSION *= *'[^']*'/const APP_VERSION = '[NEXT_VERSION]'/g" public/sw.js
-
-        echo "    - Updated service worker version template."
-    fi
-}

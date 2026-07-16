@@ -152,6 +152,12 @@ function ssh_create_release() {
             echo "    - Updated public/manifest.json."
         fi
 
+        # Bump the service worker APP_VERSION in place, like package.json.
+        if [ -f "public/sw.js" ]; then
+            sed_inplace "s/const APP_VERSION *= *'[^']*'/const APP_VERSION = '$NEW_VERSION'/g" public/sw.js
+            echo "    - Updated public/sw.js APP_VERSION."
+        fi
+
         replace_next_version_placeholders "$NEW_VERSION"
 
         git add . >/dev/null 2>&1
@@ -197,10 +203,11 @@ function ssh_create_release() {
     echo "    - Merged release/$CURRENT_VERSION into $DEFAULT_BRANCH."
 
     # --- Re-seed for the next cycle ----------------------------------------
-    # These changes are left uncommitted and carried back to the working branch
-    # by the checkout below, matching the gcrq end state.
+    # The changelog template is left uncommitted and carried back to the working
+    # branch by the checkout below, matching the gcrq end state. The service
+    # worker APP_VERSION is bumped in place at release time (above), so there is
+    # no [NEXT_VERSION] template to reset here.
     changelog_add_next_version_template --quiet
-    update_service_worker_next_version_template
 
     git checkout "$CURRENT_BRANCH" >/dev/null 2>&1
 
