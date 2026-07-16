@@ -1,6 +1,6 @@
 # Changelog
 
-## [NEXT_VERSION] - [UNRELEASED]
+## [0.2.1] - 2026-07-16
 * TWK: Bump the service worker `APP_VERSION` in place at release time (like `package.json`) instead of swapping it to and from a `[NEXT_VERSION]` template, so `public/sw.js` always holds the real version. Removes the post-release reset.
 
 ## [0.2.0] - 2026-07-16
