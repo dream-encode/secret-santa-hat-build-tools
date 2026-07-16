@@ -1,5 +1,8 @@
 # Changelog
 
+## [NEXT_VERSION] - [UNRELEASED]
+* TSK: Publish releases from CI via GitHub Actions with npm OIDC trusted publishing, so releases no longer need a local npm token. `npmcr` detects the `publish-npm.yml` workflow and skips the manual publish.
+
 ## [0.1.1] - 2026-07-16
 * TSK: Publish under the `@secret-santa-hat` npm organization as `@secret-santa-hat/build-tools`, moving it out of `@dream-encode`.
 
