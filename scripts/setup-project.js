@@ -88,7 +88,8 @@ function analyzeCurrentSetup( pkg ) {
 		hasReleaseScript: !! releaseScript,
 		currentReleaseScript: releaseScript,
 		isReleaseConfigured,
-		hasPrerelease: !! ( pkg.scripts && pkg.scripts.prerelease ),
+		hasPreflight: !! ( pkg.scripts && pkg.scripts.preflight ),
+		hasLegacyPrerelease: !! ( pkg.scripts && pkg.scripts.prerelease ),
 		needsSetup: ! isReleaseConfigured,
 	}
 }
@@ -122,10 +123,12 @@ async function setupReleaseScript( projectRoot, pkg, analysis, force = false ) {
 
 	log( `   • Set "release": "${ RELEASE_VALUE }"`, 'blue' )
 
-	if ( analysis.hasPrerelease ) {
-		log( '   • Leave your existing "prerelease" script untouched (it runs before release)', 'dim' )
+	if ( analysis.hasLegacyPrerelease ) {
+		log( '   • Rename your "prerelease" script to "preflight" - ssh-release runs it with output captured (quiet on pass, shown on failure)', 'yellow' )
+	} else if ( analysis.hasPreflight ) {
+		log( '   • Your "preflight" script will run before each release (output captured)', 'dim' )
 	} else {
-		log( '   • Tip: add a "prerelease" script (tests/lint/build) - it runs automatically before release', 'dim' )
+		log( '   • Tip: add a "preflight" script (tests/lint/build) - ssh-release runs it before each release, quietly', 'dim' )
 	}
 
 	if ( ! force && isInteractive() ) {

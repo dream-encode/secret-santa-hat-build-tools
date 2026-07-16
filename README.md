@@ -60,19 +60,22 @@ npx @secret-santa-hat/build-tools setup --force  # no prompts
 ```
 
 This sets `"release": "ssh-release"`. Any existing custom release script is
-backed up as `release-backup`. An existing `prerelease` script is left alone.
+backed up as `release-backup`.
 
-## `yarn release` = prerelease + release
+## Pre-release checks (`preflight`)
 
-yarn (classic) and npm run a `prerelease` script automatically before
-`release`. Keep each repo's pre-flight checks in its own `prerelease` script,
-and `yarn release` runs them and then the release flow:
+Keep each repo's pre-flight checks (tests, lint, build, ...) in a `preflight`
+script. `ssh-release` runs it itself, **with the output captured** — a single
+line on success, the full output only when it fails. Name it `preflight`, not
+`prerelease`: a `prerelease` script is a yarn/npm lifecycle hook that runs
+verbosely in a separate process *before* `ssh-release`, so its output cannot be
+quieted.
 
 ```jsonc
 {
   "scripts": {
-    // repo-specific pre-flight (tests, lint, build, browserslist refresh, ...)
-    "prerelease": "yarn maintenance && yarn test:unit",
+    // repo-specific checks, run quietly by ssh-release before the release
+    "preflight": "yarn maintenance && yarn test:unit",
     // the shared release flow
     "release": "ssh-release"
   }
@@ -80,7 +83,7 @@ and `yarn release` runs them and then the release flow:
 ```
 
 ```bash
-yarn release          # prerelease, then interactive release
+yarn release          # runs preflight (quiet), then the interactive release
 yarn release --dry-run
 ```
 
