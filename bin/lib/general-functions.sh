@@ -261,6 +261,7 @@ function replace_next_version_placeholders() {
         --exclude="*.lock" \
         --exclude="*.sh" \
         --exclude="CHANGELOG.md" \
+        --exclude="README.md" \
         2>/dev/null || true)
 
     if [ -n "$files" ]; then
