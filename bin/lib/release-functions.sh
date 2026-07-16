@@ -55,6 +55,17 @@ function ssh_create_release() {
         _release_abort
     fi
 
+    # --- Keep the build tools current --------------------------------------
+    # Pull the latest @secret-santa-hat/build-tools before releasing; a real
+    # update records a TSK changelog entry and is committed + pushed on its own.
+    # This run continues on the already-loaded version - the upgrade applies from
+    # the next release. Never let a self-update issue abort the release.
+    if [ "${DRY_RUN:-false}" = "true" ]; then
+        node "$SCRIPT_DIR/ssh-update.js" --dry-run 2>/dev/null || true
+    else
+        node "$SCRIPT_DIR/ssh-update.js" || true
+    fi
+
     # --- Determine the target version --------------------------------------
     local NEW_VERSION=""
     local do_bump="true"

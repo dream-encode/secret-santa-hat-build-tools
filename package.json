@@ -1,6 +1,6 @@
 {
   "name": "@secret-santa-hat/build-tools",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Release build tools for Secret Santa Hat JavaScript repositories. Provides the `ssh-release` command, a JS-tailored port of the gcrq (git_create_release_quiet) release flow.",
   "license": "MIT",
   "author": "David Baumwald <david@dream-encode.com>",
@@ -10,6 +10,7 @@
   },
   "bin": {
     "ssh-release": "bin/ssh-release.js",
+    "ssh-update": "bin/ssh-update.js",
     "secret-santa-hat-build-tools": "bin/setup.js"
   },
   "files": [
