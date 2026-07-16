@@ -1,6 +1,6 @@
 # Changelog
 
-## [NEXT_VERSION] - [UNRELEASED]
+## [0.2.4] - 2026-07-16
 * BUG: Release - Don't display the tag URL in stdout.
 
 ## [0.2.3] - 2026-07-16
