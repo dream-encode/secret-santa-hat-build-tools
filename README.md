@@ -46,17 +46,17 @@ ssh-release --check-tools
 
 ```bash
 # yarn (classic)
-yarn add --dev @dream-encode/secret-santa-hat-build-tools
+yarn add --dev @secret-santa-hat/build-tools
 
 # npm
-npm install --save-dev @dream-encode/secret-santa-hat-build-tools
+npm install --save-dev @secret-santa-hat/build-tools
 ```
 
 After install, wire the `release` script into the project:
 
 ```bash
-npx @dream-encode/secret-santa-hat-build-tools setup          # interactive
-npx @dream-encode/secret-santa-hat-build-tools setup --force  # no prompts
+npx @secret-santa-hat/build-tools setup          # interactive
+npx @secret-santa-hat/build-tools setup --force  # no prompts
 ```
 
 This sets `"release": "ssh-release"`. Any existing custom release script is

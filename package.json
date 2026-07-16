@@ -1,5 +1,5 @@
 {
-  "name": "@dream-encode/secret-santa-hat-build-tools",
+  "name": "@secret-santa-hat/build-tools",
   "version": "0.1.0",
   "description": "Release build tools for Secret Santa Hat JavaScript repositories. Provides the `ssh-release` command, a JS-tailored port of the gcrq (git_create_release_quiet) release flow.",
   "license": "MIT",

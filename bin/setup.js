@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /*
- * Entry point for `npx @dream-encode/secret-santa-hat-build-tools setup`.
+ * Entry point for `npx @secret-santa-hat/build-tools setup`.
  * Delegates to the interactive project setup.
  */
 
