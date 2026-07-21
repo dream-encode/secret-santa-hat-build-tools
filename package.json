@@ -25,12 +25,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dream-encode/secret-santa-hat-build-tools.git"
+    "url": "git+https://github.com/secret-santa-hat/secret-santa-hat-build-tools.git"
   },
   "bugs": {
-    "url": "https://github.com/dream-encode/secret-santa-hat-build-tools/issues"
+    "url": "https://github.com/secret-santa-hat/secret-santa-hat-build-tools/issues"
   },
-  "homepage": "https://github.com/dream-encode/secret-santa-hat-build-tools#readme",
+  "homepage": "https://github.com/secret-santa-hat/secret-santa-hat-build-tools#readme",
   "keywords": [
     "secret-santa-hat",
     "release",

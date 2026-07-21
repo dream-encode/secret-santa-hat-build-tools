@@ -1,5 +1,8 @@
 # Changelog
 
+## [NEXT_VERSION] - [UNRELEASED]
+* TSK: Metadata - Point the package `repository`, `bugs` and `homepage` URLs at the `secret-santa-hat` GitHub org after the repository transfer.
+
 ## [0.2.4] - 2026-07-16
 * BUG: Release - Don't display the tag URL in stdout.
 
