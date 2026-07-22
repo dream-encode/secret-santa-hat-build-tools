@@ -239,8 +239,50 @@ function ssh_create_release() {
 
     # --- Merge into the default branch -------------------------------------
     git checkout "$DEFAULT_BRANCH" >/dev/null 2>&1
-    git merge "release/$CURRENT_VERSION" --no-ff -m "Merge release/$CURRENT_VERSION into $DEFAULT_BRANCH" >/dev/null 2>&1
-    git push -q origin "$DEFAULT_BRANCH" >/dev/null 2>&1
+
+    # Sync the default branch with its remote before merging the release into
+    # it. Commits can land on the default branch directly on the remote - most
+    # often Dependabot pull requests merged from the GitHub UI - which leaves the
+    # local branch stale. Merging the release onto a stale base and pushing is
+    # then rejected as a non-fast-forward; because the tag and GitHub release are
+    # already published above, the release would abort half-finished and strand
+    # the working branch on the default branch. Fast-forward to the remote first
+    # so the later push is clean, and if any step fails, stop with a clear,
+    # actionable message rather than a silent, half-applied release.
+    git fetch -q origin "$DEFAULT_BRANCH" >/dev/null 2>&1 || true
+
+    if git show-ref --verify --quiet "refs/remotes/origin/$DEFAULT_BRANCH"; then
+        if ! git merge --ff-only "origin/$DEFAULT_BRANCH" >/dev/null 2>&1; then
+            echo "" >&2
+            echo "❌ Error: local '$DEFAULT_BRANCH' cannot be fast-forwarded to 'origin/$DEFAULT_BRANCH'." >&2
+            echo "   It has commits the remote does not - a previous release may have failed to push." >&2
+            echo "   release/$CURRENT_VERSION, tag v$CURRENT_VERSION, and the GitHub release were created," >&2
+            echo "   but the merge into '$DEFAULT_BRANCH' was not. Reconcile '$DEFAULT_BRANCH' with the" >&2
+            echo "   remote, merge 'release/$CURRENT_VERSION' into it, push, then re-seed the changelog." >&2
+
+            _release_abort
+        fi
+    fi
+
+    if ! git merge "release/$CURRENT_VERSION" --no-ff -m "Merge release/$CURRENT_VERSION into $DEFAULT_BRANCH" >/dev/null 2>&1; then
+        echo "" >&2
+        echo "❌ Error: merging 'release/$CURRENT_VERSION' into '$DEFAULT_BRANCH' hit conflicts." >&2
+        echo "   Commits pulled from the remote (for example Dependabot bumps) touch the same files" >&2
+        echo "   as this release. Resolve the conflicts, complete the merge, and push '$DEFAULT_BRANCH'." >&2
+
+        _release_abort
+    fi
+
+    local push_output
+    if ! push_output=$(git push origin "$DEFAULT_BRANCH" 2>&1); then
+        echo "" >&2
+        echo "❌ Error: pushing '$DEFAULT_BRANCH' to origin failed." >&2
+        printf '   %s\n' "$push_output" >&2
+        echo "   The merge is committed locally; resolve the problem and push '$DEFAULT_BRANCH' manually." >&2
+
+        _release_abort
+    fi
+
     echo "    - Merged release/$CURRENT_VERSION into $DEFAULT_BRANCH."
 
     # --- Re-seed for the next cycle ----------------------------------------
