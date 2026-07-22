@@ -1,6 +1,6 @@
 # Changelog
 
-## [NEXT_VERSION] - [UNRELEASED]
+## [0.2.6] - 2026-07-22
 * BUG: Release - Sync the default branch with its remote before merging a release into it. Commits that land on the default branch directly on the remote - most often Dependabot pull requests merged from the GitHub UI - left the local branch stale, so the release merged onto an out-of-date base and the push was rejected as a non-fast-forward. Because the tag and GitHub release were already created, the release aborted half-finished and stranded the working branch on the default branch. The default branch is now fast-forwarded to its remote first, and a failed sync, merge, or push stops with a clear reason instead of ending silently.
 
 ## [0.2.5] - 2026-07-21
